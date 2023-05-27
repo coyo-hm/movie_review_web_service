@@ -1,45 +1,39 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { motion, useAnimation, useScroll } from 'framer-motion';
 import styled from '@emotion/styled';
 import { ReactComponent as IconProfile } from '../../assets/images/icon_profile.svg';
 import { ReactComponent as IconSearch } from '../../assets/images/icon_search.svg';
-import IconLogo from '../../assets/images/logo_icon.png';
+import { ReactComponent as IconBrand } from '../../assets/images/logo_brand.svg';
 import useInput from '../../hooks/useInput';
 import SITE_URL from '../../constants/site_url';
 
-const MainHeaderWrapper = styled.header`
+const MainHeaderWrapper = styled(motion.header)`
   height: ${(props) => props.theme.layout.headerHeight};
   width: 100vw;
   grid-area: header;
-  background-color: rgba(0, 0, 0, 0.9);
+  background-color: rgba(0, 0, 0, 0.85);
   padding: 15px 30px;
   display: grid;
   gap: 10px;
-  grid-template-columns: 127px 1fr 20px;
+  grid-template-columns: 46px 1fr 20px;
   justify-items: flex-end;
   align-items: center;
   overflow: hidden;
 `;
 
-const LogoBtn = styled.button`
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-  align-items: center;
+const LogoBtn = styled(Link)`
   height: 100%;
-  color: ${(props) => props.theme.colors.logoBlue};
-  font-size: 36px;
-  transition: 0.3ms;
-
-  img {
-    height: 40px;
-    width: auto;
-    color: inherit;
-  }
+  color: #bfd8ff;
+  transition: 0.5ms;
 
   &:hover {
     color: #003678;
+  }
+
+  svg {
+    height: 100%;
+    width: auto;
   }
 `;
 
@@ -92,12 +86,31 @@ const ProfileBtn = styled.button`
     color: ${(props) => props.theme.colors.logoBlue};
   }
 `;
-
+const navVariants = {
+  top: {
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  scroll: {
+    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+  },
+};
 const MainHeader = () => {
   const navigate = useNavigate();
+  const { scrollY } = useScroll();
 
+  const navAnimation = useAnimation();
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const keyword = useInput('');
+
+  useEffect(() => {
+    scrollY.onChange(() => {
+      if (scrollY.get() > 80) {
+        navAnimation.start('scroll');
+      } else {
+        navAnimation.start('top');
+      }
+    });
+  }, [scrollY, navAnimation]);
 
   const handleSearch = () => {
     if (keyword.value?.length >= 2) {
@@ -106,10 +119,9 @@ const MainHeader = () => {
   };
 
   return (
-    <MainHeaderWrapper>
-      <LogoBtn>
-        <img src={IconLogo} height={40} alt={'logo-button'} />
-        <span>AFIL</span>
+    <MainHeaderWrapper initial={'top'} animate={navAnimation} variants={navVariants}>
+      <LogoBtn to={SITE_URL.MAIN}>
+        <IconBrand />
       </LogoBtn>
       <SearchBar onSubmit={handleSearch}>
         <SearchBtn
