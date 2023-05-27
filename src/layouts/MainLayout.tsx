@@ -10,7 +10,7 @@ const MainLayoutWrapper = styled.main`
   display: grid;
   grid-template-areas: 'header header' 'sidebar main';
   grid-template-rows: ${(props) => props.theme.layout.headerHeight} 1fr;
-  grid-template-columns: ${(props) => props.theme.layout.sidebarWidth} 1fr;
+  // grid-template-columns: ${(props) => props.theme.layout.sidebarWidth} 1fr;
 `;
 
 const MainContentWrapper = styled.main`
@@ -22,7 +22,7 @@ const MainLayout = () => {
   return (
     <MainLayoutWrapper>
       <MainHeader />
-      <MainSidebar />
+      {/*<MainSidebar />*/}
       <MainContentWrapper>
         <Outlet />
       </MainContentWrapper>

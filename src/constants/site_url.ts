@@ -1,5 +1,6 @@
 const SITE_URL = {
-    MAIN: "/"
-}
+  MAIN: '/',
+  SEARCH: '/search',
+};
 
-export default SITE_URL
+export default SITE_URL;

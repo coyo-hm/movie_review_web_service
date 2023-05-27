@@ -1,9 +1,11 @@
 const theme = {
   layout: {
-    headerHeight: '80px',
+    headerHeight: '70px',
     sidebarWidth: '200px',
   },
-  colors: {},
+  colors: {
+    logoBlue: '#2E569D',
+  },
   button: {
     main: {
       default: {},
