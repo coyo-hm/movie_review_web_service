@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router-dom';
 import styled from '@emotion/styled';
 import MainHeader from '../components/common/MainHeader';
-import MainSidebar from '../components/common/MainSidebar';
+// import MainSidebar from '../components/common/MainSidebar';
 
 const MainLayoutWrapper = styled.main`
   background-color: beige;
