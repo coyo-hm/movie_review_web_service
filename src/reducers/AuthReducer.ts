@@ -6,7 +6,7 @@ const AuthSlice = createSlice({
   name: 'AUTH',
   initialState,
   reducers: { clearAuth: () => initialState },
-  extraReducers: (builder) => {},
+  // extraReducers: (builder) => {},
 });
 
 export const { clearAuth } = AuthSlice.actions;

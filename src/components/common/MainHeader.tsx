@@ -1,4 +1,4 @@
-import { FormEvent, useEffect, useState } from 'react';
+import { FormEvent, useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion, useAnimation, useScroll } from 'framer-motion';
 import styled from '@emotion/styled';
@@ -7,6 +7,7 @@ import useInput from '../../hooks/useInput';
 import { ReactComponent as IconProfile } from '../../assets/images/icon_profile.svg';
 import { ReactComponent as IconSearch } from '../../assets/images/icon_search.svg';
 import { ReactComponent as IconBrand } from '../../assets/images/logo_brand.svg';
+import { useAppSelector } from '../../hooks/redux';
 
 const MainHeaderWrapper = styled(motion.header)`
   height: ${(props) => props.theme.layout.headerHeight};
@@ -14,10 +15,9 @@ const MainHeaderWrapper = styled(motion.header)`
   grid-area: header;
   background-color: rgba(255, 255, 255);
   padding: 15px 30px;
-  display: grid;
+  display: flex;
   gap: 10px;
-  grid-template-columns: 35px 1fr 20px;
-  justify-items: flex-end;
+  justify-content: flex-end;
   align-items: center;
   overflow: hidden;
 `;
@@ -38,6 +38,7 @@ const LogoBtn = styled(Link)`
 `;
 
 const SearchBar = styled.form`
+  flex: 1 1 0;
   overflow: hidden;
   position: relative;
   width: 100%;
@@ -97,10 +98,12 @@ const navVariants = {
 };
 const MainHeader = () => {
   const navigate = useNavigate();
+  const { isLogin } = useAppSelector((state) => state.auth);
   const { scrollY } = useScroll();
   const navAnimation = useAnimation();
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [keyword, onChangeKeyword] = useInput('');
+  const searchbarRef = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
     scrollY.on('change', () => {
@@ -111,6 +114,16 @@ const MainHeader = () => {
       }
     });
   }, [scrollY, navAnimation]);
+
+  useEffect(() => {
+    if (isSearchOpen) {
+      window.addEventListener('click', (e) => {
+        if (!searchbarRef.current?.contains(e?.target as Node)) {
+          setIsSearchOpen(false);
+        }
+      });
+    }
+  }, [isSearchOpen, searchbarRef]);
 
   const handleSearch = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -124,7 +137,7 @@ const MainHeader = () => {
       <LogoBtn to={SITE_URL.MAIN}>
         <IconBrand />
       </LogoBtn>
-      <SearchBar onSubmit={handleSearch}>
+      <SearchBar onSubmit={handleSearch} ref={searchbarRef}>
         <SearchBtn
           animate={{ x: isSearchOpen ? -35 : 140 }}
           transition={{ type: 'linear' }}
@@ -141,9 +154,15 @@ const MainHeader = () => {
           type={'search'}
         />
       </SearchBar>
-      <ProfileBtn>
-        <IconProfile />
-      </ProfileBtn>
+      {isLogin ? (
+        <>
+          <ProfileBtn>
+            <IconProfile />
+          </ProfileBtn>
+        </>
+      ) : (
+        <></>
+      )}
     </MainHeaderWrapper>
   );
 };
