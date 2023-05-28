@@ -1,10 +1,10 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useMemo, useState } from 'react';
+import validate, { TypeValidate } from '../utils/validate';
 
-type TypeValidate = 'keyword';
 // eslint-disable-next-line
-const useInput = (initialValue: any, validate?: TypeValidate) => {
+const useInput = (initialValue: any, validateType?: TypeValidate) => {
   const [value, setter] = useState(initialValue);
-  const validation = true;
+  const validation = useMemo(() => validate(value, validateType), [value, validateType]);
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
