@@ -7,6 +7,7 @@ import SITE_URL from './constants/site_url';
 import { Provider } from 'react-redux';
 import { persistor, store } from './reducers/store';
 import { PersistGate } from 'redux-persist/integration/react';
+import ModalProvider from './contexts/ModalContext';
 
 const MainLayout = loadable(() => import('./layouts/MainLayout'));
 const SignUpPage = loadable(() => import('./pages/SignUpPage'));
@@ -18,15 +19,17 @@ function App() {
     <Provider store={store}>
       <PersistGate persistor={persistor}>
         <ThemeProvider theme={theme}>
-          <BrowserRouter>
-            <Routes>
-              <Route element={<MainLayout />}>
-                <Route element={<MainPage />} path={'*'} />
-                <Route element={<SearchPage />} path={SITE_URL.SEARCH} />
-                <Route element={<SignUpPage />} path={SITE_URL.SIGN_UP} />
-              </Route>
-            </Routes>
-          </BrowserRouter>
+          <ModalProvider>
+            <BrowserRouter>
+              <Routes>
+                <Route element={<MainLayout />}>
+                  <Route element={<MainPage />} path={'*'} />
+                  <Route element={<SearchPage />} path={SITE_URL.SEARCH} />
+                  <Route element={<SignUpPage />} path={SITE_URL.SIGN_UP} />
+                </Route>
+              </Routes>
+            </BrowserRouter>
+          </ModalProvider>
         </ThemeProvider>
       </PersistGate>
     </Provider>

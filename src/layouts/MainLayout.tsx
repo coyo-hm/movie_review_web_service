@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router-dom';
 import styled from '@emotion/styled';
-import MainHeader from '../components/common/MainHeader';
+import MainHeader from '../components/MainHeader';
 
 const MainLayoutWrapper = styled.main`
   background-color: white;

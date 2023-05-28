@@ -1,7 +1,8 @@
-import styled from '@emotion/styled';
-import { useNavigate } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../hooks/redux';
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import styled from '@emotion/styled';
+import { AnimatePresence } from 'framer-motion';
+import { useAppDispatch, useAppSelector } from '../hooks/redux';
 import { getMoviesAsync } from '../services/MovieService';
 
 const MainPageWrapper = styled.main``;
@@ -17,7 +18,11 @@ const MainPage = () => {
     getMovie();
   }, []);
 
-  return <MainPageWrapper></MainPageWrapper>;
+  return (
+    <MainPageWrapper>
+      <AnimatePresence></AnimatePresence>
+    </MainPageWrapper>
+  );
 };
 
 export default MainPage;
