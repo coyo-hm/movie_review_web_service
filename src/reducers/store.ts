@@ -32,8 +32,8 @@ export const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: false,
-    }), // 미들웨어를 정의해주도록 합니다.
-  devTools: process.env.NODE_ENV !== 'production', // devTool 의 옵션을 선택합니다.
+    }),
+  devTools: process.env.NODE_ENV !== 'production',
 });
 
 export const persistor = persistStore(store);
