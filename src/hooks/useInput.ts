@@ -12,7 +12,7 @@ const useInput = (initialValue: any, validate?: TypeValidate) => {
     setter(newValue);
   };
 
-  return { value, onChange, validation, setter };
+  return [value, onChange, validation, setter];
 };
 
 export default useInput;

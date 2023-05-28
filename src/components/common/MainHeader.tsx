@@ -1,34 +1,34 @@
-import { useEffect, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion, useAnimation, useScroll } from 'framer-motion';
 import styled from '@emotion/styled';
+import SITE_URL from '../../constants/site_url';
+import useInput from '../../hooks/useInput';
 import { ReactComponent as IconProfile } from '../../assets/images/icon_profile.svg';
 import { ReactComponent as IconSearch } from '../../assets/images/icon_search.svg';
 import { ReactComponent as IconBrand } from '../../assets/images/logo_brand.svg';
-import useInput from '../../hooks/useInput';
-import SITE_URL from '../../constants/site_url';
 
 const MainHeaderWrapper = styled(motion.header)`
   height: ${(props) => props.theme.layout.headerHeight};
   width: 100vw;
   grid-area: header;
-  background-color: rgba(0, 0, 0, 0.85);
+  background-color: rgba(255, 255, 255);
   padding: 15px 30px;
   display: grid;
   gap: 10px;
-  grid-template-columns: 46px 1fr 20px;
+  grid-template-columns: 35px 1fr 20px;
   justify-items: flex-end;
   align-items: center;
   overflow: hidden;
 `;
 
 const LogoBtn = styled(Link)`
-  height: 100%;
-  color: #bfd8ff;
+  height: 30px;
+  color: #003678;
   transition: 0.5ms;
 
   &:hover {
-    color: #003678;
+    color: ${(props) => props.theme.colors.lightBlue};
   }
 
   svg {
@@ -45,10 +45,10 @@ const SearchBar = styled.form`
 `;
 
 const SearchInput = styled(motion.input)`
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: rgba(0, 0, 0, 0.05);
   border-radius: 30px;
   padding: 5px 10px;
-  color: white;
+  color: black;
   width: 170px;
   font-size: 12px;
   font-weight: 200;
@@ -57,7 +57,7 @@ const SearchInput = styled(motion.input)`
 const SearchBtn = styled(motion.button)`
   height: 25px;
   width: auto;
-  color: white;
+  color: ${(props) => props.theme.colors.logoBlue};
   position: absolute;
 
   svg {
@@ -67,13 +67,13 @@ const SearchBtn = styled(motion.button)`
   }
 
   &:hover {
-    color: ${(props) => props.theme.colors.logoBlue};
+    color: ${(props) => props.theme.colors.lightBlue};
   }
 `;
 
 const ProfileBtn = styled.button`
   height: 25px;
-  color: white;
+  color: ${(props) => props.theme.colors.logoBlue};
 
   svg {
     height: 100%;
@@ -83,27 +83,27 @@ const ProfileBtn = styled.button`
   }
 
   &:hover {
-    color: ${(props) => props.theme.colors.logoBlue};
+    color: ${(props) => props.theme.colors.lightBlue};
   }
 `;
 const navVariants = {
   top: {
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    backgroundColor: 'rgba(255, 255, 255, 1)',
   },
   scroll: {
-    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+    backgroundColor: 'rgba(255, 255, 255, 0.8)',
+    boxShadow: '0px 4px 4px 0px #0000001A',
   },
 };
 const MainHeader = () => {
   const navigate = useNavigate();
   const { scrollY } = useScroll();
-
   const navAnimation = useAnimation();
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const keyword = useInput('');
+  const [keyword, onChangeKeyword] = useInput('');
 
   useEffect(() => {
-    scrollY.onChange(() => {
+    scrollY.on('change', () => {
       if (scrollY.get() > 80) {
         navAnimation.start('scroll');
       } else {
@@ -112,9 +112,10 @@ const MainHeader = () => {
     });
   }, [scrollY, navAnimation]);
 
-  const handleSearch = () => {
-    if (keyword.value?.length >= 2) {
-      navigate(SITE_URL.SEARCH + `?keyword=${keyword.value}`);
+  const handleSearch = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (keyword.length >= 2) {
+      navigate(SITE_URL.SEARCH + `?keyword=${keyword}`);
     }
   };
 
@@ -133,7 +134,8 @@ const MainHeader = () => {
           <IconSearch />
         </SearchBtn>
         <SearchInput
-          {...keyword}
+          value={keyword}
+          onChange={onChangeKeyword}
           animate={{ x: isSearchOpen ? 0 : 200 }}
           transition={{ type: 'linear' }}
           type={'search'}

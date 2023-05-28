@@ -5,6 +5,7 @@ const theme = {
   },
   colors: {
     logoBlue: '#2E569D',
+    lightBlue: '#bfd8ff',
   },
   button: {
     main: {
