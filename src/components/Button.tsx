@@ -10,7 +10,7 @@ const Button = styled.button<Props>`
   border-radius: 50px;
   padding: 10px;
   font-size: 16px;
-  transition: 0.3ms;
+  transition: 0.3s ease;
   width: 100%;
 
   ${(props) => props.theme.button[props.buttonTheme].default}

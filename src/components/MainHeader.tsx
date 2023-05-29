@@ -29,7 +29,7 @@ const MainHeaderWrapper = styled(motion.header)`
 const LogoBtn = styled(Link)`
   height: 30px;
   color: #003678;
-  transition: 0.5ms;
+  transition: 0.5s ease;
 
   &:hover {
     color: ${(props) => props.theme.colors.lightBlue};
@@ -82,7 +82,7 @@ const ProfileBtn = styled.button`
 
   svg {
     height: 100%;
-    transition: 0.3ms;
+    transition: 0.3s ease;
     width: auto;
     color: inherit;
   }
@@ -91,6 +91,7 @@ const ProfileBtn = styled.button`
     color: ${(props) => props.theme.colors.lightBlue};
   }
 `;
+
 const navVariants = {
   top: {
     backgroundColor: 'rgba(255, 255, 255, 1)',
