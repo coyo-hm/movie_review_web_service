@@ -5,7 +5,7 @@ import useInput from '../hooks/useInput';
 import SITE_URL from '../constants/site_url';
 import Input from './Input';
 import Button from './Button';
-import { ReactComponent as IconWarning } from '../assets/images/warning.svg';
+import { ReactComponent as IconWarning } from '@icons/warning.svg';
 
 const LoginForm = styled.form`
   padding: 10px 0 0;

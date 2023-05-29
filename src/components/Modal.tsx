@@ -2,7 +2,7 @@ import { ReactNode, useEffect } from 'react';
 import styled from '@emotion/styled';
 import Dim from './Dim';
 import Logo from '../assets/images/logo_icon.png';
-import IconX from '../assets/images/x.svg';
+import IconX from '../assets/icons/x.svg';
 
 const ModalWrapper = styled.dialog`
   position: fixed;
