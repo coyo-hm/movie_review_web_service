@@ -1,13 +1,15 @@
 import { FormEvent, useEffect, useRef, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { motion, useAnimation, useScroll } from 'framer-motion';
 import styled from '@emotion/styled';
-import SITE_URL from '../../constants/site_url';
-import useInput from '../../hooks/useInput';
-import { ReactComponent as IconProfile } from '../../assets/images/icon_profile.svg';
-import { ReactComponent as IconSearch } from '../../assets/images/icon_search.svg';
-import { ReactComponent as IconBrand } from '../../assets/images/logo_brand.svg';
-import { useAppSelector } from '../../hooks/redux';
+import SITE_URL from '../constants/site_url';
+import useInput from '../hooks/useInput';
+import { ReactComponent as IconProfile } from '../assets/images/icon_profile.svg';
+import { ReactComponent as IconSearch } from '../assets/images/icon_search.svg';
+import { ReactComponent as IconBrand } from '../assets/images/logo_brand.svg';
+import { useAppSelector } from '../hooks/redux';
+import useModal from '../hooks/useModal';
+import LoginModal from './LoginModal';
 
 const MainHeaderWrapper = styled(motion.header)`
   height: ${(props) => props.theme.layout.headerHeight};
@@ -17,7 +19,7 @@ const MainHeaderWrapper = styled(motion.header)`
   padding: 15px 30px;
   display: flex;
   gap: 10px;
-  justify-content: flex-end;
+  justify-content: flex-start;
   align-items: center;
   overflow: hidden;
 `;
@@ -98,12 +100,15 @@ const navVariants = {
 };
 const MainHeader = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { isLogin } = useAppSelector((state) => state.auth);
+  const { openModal } = useModal();
   const { scrollY } = useScroll();
   const navAnimation = useAnimation();
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [keyword, onChangeKeyword] = useInput('');
   const searchbarRef = useRef<HTMLFormElement>(null);
+  const isAuthPage = [SITE_URL.SIGN_UP].includes(location.pathname);
 
   useEffect(() => {
     scrollY.on('change', () => {
@@ -137,31 +142,37 @@ const MainHeader = () => {
       <LogoBtn to={SITE_URL.MAIN}>
         <IconBrand />
       </LogoBtn>
-      <SearchBar onSubmit={handleSearch} ref={searchbarRef}>
-        <SearchBtn
-          animate={{ x: isSearchOpen ? -35 : 140 }}
-          transition={{ type: 'linear' }}
-          onClick={() => setIsSearchOpen((prev) => !prev)}
-          type={'button'}
-        >
-          <IconSearch />
-        </SearchBtn>
-        <SearchInput
-          value={keyword}
-          onChange={onChangeKeyword}
-          animate={{ x: isSearchOpen ? 0 : 200 }}
-          transition={{ type: 'linear' }}
-          type={'search'}
-        />
-      </SearchBar>
-      {isLogin ? (
+      {!isAuthPage && (
         <>
-          <ProfileBtn>
-            <IconProfile />
-          </ProfileBtn>
+          <SearchBar onSubmit={handleSearch} ref={searchbarRef}>
+            <SearchBtn
+              animate={{ x: isSearchOpen ? -35 : 140 }}
+              transition={{ type: 'linear' }}
+              onClick={() => setIsSearchOpen((prev) => !prev)}
+              type={'button'}
+            >
+              <IconSearch />
+            </SearchBtn>
+            <SearchInput
+              value={keyword}
+              onChange={onChangeKeyword}
+              animate={{ x: isSearchOpen ? 0 : 200 }}
+              transition={{ type: 'linear' }}
+              type={'search'}
+            />
+          </SearchBar>
+          {isLogin ? (
+            <>
+              <ProfileBtn>
+                <IconProfile />
+              </ProfileBtn>
+            </>
+          ) : (
+            <>
+              <button onClick={() => openModal('로그인', <LoginModal />)}>로그인</button>
+            </>
+          )}
         </>
-      ) : (
-        <></>
       )}
     </MainHeaderWrapper>
   );

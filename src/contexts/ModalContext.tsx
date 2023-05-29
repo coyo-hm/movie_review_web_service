@@ -1,5 +1,5 @@
-import { createContext, ReactNode, useState } from 'react';
-import { ReactJSXElementChildrenAttribute } from '@emotion/react/types/jsx-namespace';
+import { createContext, ReactNode, useEffect, useRef, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import Modal, { ModalProps } from '../components/Modal';
 
 interface ModalContextProps {
@@ -14,12 +14,21 @@ interface ModalProviderProps {
 }
 
 const ModalProvider = ({ children }: ModalProviderProps) => {
+  const location = useLocation();
   const [modal, setModal] = useState<ModalProps | null>(null);
+  const prevLocation = useRef<string | null>(null);
 
   const closeModal = () => setModal(null);
   const openModal = (title: string, content: ReactNode, close = closeModal) => {
     setModal({ title, content, close });
   };
+
+  useEffect(() => {
+    if (prevLocation.current !== location.pathname) {
+      prevLocation.current = location.pathname;
+      closeModal();
+    }
+  }, [location.pathname]);
 
   return (
     <ModalContext.Provider value={{ openModal, closeModal }}>

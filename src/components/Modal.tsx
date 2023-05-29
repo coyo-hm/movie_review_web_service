@@ -49,7 +49,6 @@ const Modal = ({ title, content, close }: ModalProps) => {
 
   useEffect(() => {
     window.addEventListener('wheel', blockScroll);
-
     return () => window.removeEventListener('wheel', blockScroll);
   }, []);
 

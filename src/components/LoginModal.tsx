@@ -1,8 +1,12 @@
+import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
 import useInput from '../hooks/useInput';
+import SITE_URL from '../constants/site_url';
+import Input from './Input';
+import Button from './Button';
 
 const LoginForm = styled.form`
-  padding-top: 10px;
+  padding: 10px 0 0;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -11,26 +15,39 @@ const LoginForm = styled.form`
   align-items: stretch;
 `;
 
-const LoginInput = styled.input`
-  border-radius: 5px;
-  background-color: rgba(0, 0, 0, 0.05);
-  padding: 15px 20px;
-  font-size: 16px;
+const LoginButtonArea = styled.footer`
+  margin: 20px 0 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 15px;
 `;
 
 const LoginModal = () => {
-  const [email, onChangeEmail, emailValidation] = useInput('', 'email');
+  const [email, onChangeEmail, isEmailValid] = useInput('', 'email');
   const [password, onChangePassword] = useInput('');
+
   const login = () => {
     console.log(email);
   };
 
-  console.log(emailValidation);
-
   return (
     <LoginForm onSubmit={login}>
-      <LoginInput value={email} onChange={onChangeEmail} placeholder={'이메일'} />
-      <LoginInput value={password} onChange={onChangePassword} placeholder={'비밀번호'} />
+      <Input
+        value={email}
+        onChange={onChangeEmail}
+        placeholder={'이메일'}
+        invalid={!isEmailValid}
+      />
+      <Input value={password} onChange={onChangePassword} placeholder={'비밀번호'} />
+      <LoginButtonArea>
+        <Button buttonTheme={'white'} onClick={login}>
+          로그인
+        </Button>
+        <Link to={SITE_URL.SIGN_UP}>
+          <Button buttonTheme={'main'}>회원가입</Button>
+        </Link>
+      </LoginButtonArea>
     </LoginForm>
   );
 };

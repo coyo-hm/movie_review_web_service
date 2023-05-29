@@ -4,7 +4,7 @@ import CryptoJS from 'crypto-js';
 import { configureStore } from '@reduxjs/toolkit';
 import { rootReducer } from './index';
 
-const storeKey = process.env.REACT_STORE_KEY as string;
+const storeKey = 'aFil2023sToReK22';
 const encrypt = createTransform(
   (inboundState) => {
     if (!inboundState) return inboundState;
