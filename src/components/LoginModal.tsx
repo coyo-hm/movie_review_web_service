@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
-import useInput from '../hooks/useInput';
-import SITE_URL from '../constants/site_url';
-import Input from './Input';
-import Button from './Button';
+import Input from '@components/Input';
+import Button from '@components/Button';
+import SITE_URL from '@constants/site_url';
+import useInput from '@hooks/useInput';
 import { ReactComponent as IconWarning } from '@icons/warning.svg';
 
 const LoginForm = styled.form`

@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import styled from '@emotion/styled';
 import { AnimatePresence } from 'framer-motion';
-import { useAppDispatch, useAppSelector } from '../hooks/redux';
-import { getMoviesAsync } from '../services/MovieService';
+import styled from '@emotion/styled';
+import { useAppDispatch, useAppSelector } from '@hooks/redux';
+import { getMoviesAsync } from '@services/MovieService';
 
 const MainPageWrapper = styled.main``;
 const MainPage = () => {

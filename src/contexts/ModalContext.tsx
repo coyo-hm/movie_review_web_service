@@ -1,6 +1,6 @@
 import { createContext, ReactNode, useEffect, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import Modal, { ModalProps } from '../components/Modal';
+import Modal, { ModalProps } from '@components/Modal';
 
 interface ModalContextProps {
   openModal: (title: string, content: ReactNode, close?: () => void) => void;

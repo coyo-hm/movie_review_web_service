@@ -2,14 +2,16 @@ import { FormEvent, useEffect, useRef, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { motion, useAnimation, useScroll } from 'framer-motion';
 import styled from '@emotion/styled';
-import SITE_URL from '../constants/site_url';
-import useInput from '../hooks/useInput';
-import { ReactComponent as IconProfile } from '../assets/icons/profile.svg';
-import { ReactComponent as IconSearch } from '../assets/icons/search.svg';
-import { ReactComponent as IconBrand } from '../assets/images/logo_brand.svg';
-import { useAppSelector } from '../hooks/redux';
-import useModal from '../hooks/useModal';
-import LoginModal from './LoginModal';
+
+import LoginModal from '@components/LoginModal';
+import SITE_URL from '@constants/site_url';
+import useInput from '@hooks/useInput';
+import useModal from '@hooks/useModal';
+import { useAppSelector } from '@hooks/redux';
+
+import { ReactComponent as IconProfile } from '@icons/profile.svg';
+import { ReactComponent as IconSearch } from '@icons/search.svg';
+import { ReactComponent as IconBrand } from '@images/logo_brand.svg';
 
 const MainHeaderWrapper = styled(motion.header)`
   height: ${(props) => props.theme.layout.headerHeight};

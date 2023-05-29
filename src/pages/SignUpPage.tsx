@@ -1,8 +1,8 @@
-import styled from '@emotion/styled';
-import Logo from '../assets/images/logo_icon.png';
-import Input from '../components/Input';
-import useInput from '../hooks/useInput';
 import { useState } from 'react';
+import styled from '@emotion/styled';
+import Input from '@components/Input';
+import useInput from '@hooks/useInput';
+import Logo from '@images/logo_icon.png';
 
 const SignUpPageWrapper = styled.main`
   width: 100%;

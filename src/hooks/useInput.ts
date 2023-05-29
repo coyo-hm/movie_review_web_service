@@ -1,5 +1,5 @@
 import { ChangeEvent, useMemo, useState } from 'react';
-import validate, { TypeValidate } from '../utils/validate';
+import validate, { TypeValidate } from '@utils/validate';
 
 // eslint-disable-next-line
 const useInput = (initialValue: any, validateType?: TypeValidate) => {

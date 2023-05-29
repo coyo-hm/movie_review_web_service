@@ -1,5 +1,5 @@
-import { AuthReducer } from './AuthReducer';
 import { combineReducers } from '@reduxjs/toolkit';
+import { AuthReducer } from './AuthReducer';
 import { MovieReducer } from './MovieReducer';
 
 const { auth } = AuthReducer;

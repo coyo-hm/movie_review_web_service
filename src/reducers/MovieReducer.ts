@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { IMovie } from '../models/movie';
-import { getMoviesAsync } from '../services/MovieService';
+import { IMovie } from '@models/movie';
+import { getMoviesAsync } from '@services/MovieService';
 
 interface MovieState {
   moviesList: IMovie[];

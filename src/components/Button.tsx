@@ -1,6 +1,6 @@
-import styled from '@emotion/styled';
 import { ButtonHTMLAttributes } from 'react';
-import theme from '../styles/theme';
+import styled from '@emotion/styled';
+import theme from '@styles/theme';
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   buttonTheme: keyof typeof theme.button;
