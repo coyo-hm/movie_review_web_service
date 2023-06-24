@@ -31,19 +31,19 @@ const BannerContent = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  padding: 60px;
+  padding: 20px 60px;
   gap: 20px;
 `;
 
 const BannerTitle = styled.header`
-  font-size: 68px;
+  font-size: 2rem;
   color: white;
   mix-blend-mode: difference;
 `;
 
 const BannerOverview = styled.p`
-  font-size: 20px;
-  width: 75%;
+  font-size: 1rem;
+  width: 90%;
   color: rgba(255, 255, 255, 0.4);
   mix-blend-mode: difference;
   line-height: 1.5rem;
